@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEIyMI | Ingeniería y Mantenimiento Industrial</title>
+<meta name="description" content="SEIyMI, Servicios de Ingeniería y Mantenimiento Industrial en San Mateo Atenco, Estado de México. Mantenimiento, soporte técnico, automatización, maquinados, seguridad industrial y logística.">
+<style>
+  /* ====== COLORES: cambia estos para personalizar todo el sitio ====== */
+  :root{
+    --accent:#1b2f5e;
+    --accent2:#d4981a;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --line:#e2e8f0;
+  }
+  [data-theme="dark"]{
+    --bg:#0b1220; --card:#111a2b; --text:#f1f5f9; --muted:#94a3b8; --line:#1e293b;
+    --accent:#7ea6e8; --accent2:#e8b04a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background .3s,color .3s}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  section{padding:80px 0}
+  h2{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:10px;letter-spacing:-.02em}
+  .sub{color:var(--muted);margin-bottom:40px;max-width:600px}
+  .tag{display:inline-block;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+
+  /* Navegación */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:800;font-size:1.2rem}
+  .logo{display:flex;align-items:center;gap:8px}
+  .logo img{height:42px;width:auto;border-radius:6px;background:#fff}
+  .logo span{color:var(--accent);font-style:italic}
+  nav ul{display:flex;gap:24px;list-style:none;align-items:center}
+  nav ul a{font-size:.95rem;color:var(--muted);transition:color .2s}
+  nav ul a:hover{color:var(--accent)}
+  #theme{background:none;border:1px solid var(--line);border-radius:999px;width:36px;height:36px;cursor:pointer;font-size:1rem;color:var(--text)}
+  @media(max-width:700px){nav ul li:not(:last-child){display:none}}
+
+  /* Hero */
+  .hero{min-height:100vh;display:flex;align-items:center;padding-top:64px;position:relative;overflow:hidden}
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;z-index:0;animation:float 12s ease-in-out infinite}
+  .hero::before{width:380px;height:380px;background:var(--accent);top:10%;right:-100px}
+  .hero::after{width:300px;height:300px;background:var(--accent2);bottom:5%;left:-80px;animation-delay:-6s}
+  @keyframes float{50%{transform:translate(30px,-40px) scale(1.1)}}
+  .hero .wrap{position:relative;z-index:1}
+  .hero h1{font-size:clamp(2.4rem,7vw,5rem);line-height:1.05;letter-spacing:-.03em;margin-bottom:20px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{font-size:1.2rem;color:var(--muted);max-width:560px;margin-bottom:32px}
+  .btn{display:inline-block;padding:14px 28px;border-radius:999px;font-weight:600;transition:transform .2s,box-shadow .2s;border:none;cursor:pointer;font-size:1rem}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff}
+  .btn.ghost{border:1px solid var(--line);margin-left:10px;background:var(--card);color:var(--text)}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(30,90,168,.25)}
+
+  /* Estadísticas */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;text-align:center}
+  .stat b{display:block;font-size:2.8rem;color:var(--accent);letter-spacing:-.02em}
+  .stat span{color:var(--muted);font-size:.95rem}
+
+  /* Servicios */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px;transition:transform .25s,border-color .25s}
+  .card:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .card .ico{font-size:2rem;margin-bottom:12px}
+  .card h3{margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.95rem}
+
+  /* Proyectos */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+  .filters button{padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;font-size:.9rem;transition:all .2s}
+  .filters button.on,.filters button:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .project{border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);cursor:pointer;transition:transform .25s,opacity .3s}
+  .project:hover{transform:translateY(-6px)}
+  .project.hide{display:none}
+  .thumb{height:170px;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#fff}
+  .project .info{padding:20px}
+  .project small{color:var(--accent);font-weight:600;text-transform:uppercase;font-size:.75rem;letter-spacing:.08em}
+  .project h3{margin:4px 0}
+  .project p{color:var(--muted);font-size:.9rem}
+
+  /* Modal */
+  #modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  #modal.open{display:flex}
+  .box{background:var(--card);border-radius:20px;max-width:480px;width:100%;overflow:hidden;animation:pop .25s}
+  @keyframes pop{from{transform:scale(.9);opacity:0}}
+  .box .thumb{height:200px}
+  .box .info{padding:24px}
+  .box button{margin-top:16px}
+
+  /* Testimonios */
+  .quote{font-style:italic}
+  .quote footer{margin-top:14px;font-style:normal;font-weight:600;font-size:.9rem}
+  .quote footer span{display:block;color:var(--muted);font-weight:400}
+
+  /* Clientes */
+  .chips{display:flex;flex-wrap:wrap;gap:12px}
+  .chip{padding:12px 22px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-weight:600;transition:border-color .2s}
+  .chip:hover{border-color:var(--accent)}
+
+  /* Contacto */
+  .contactinfo{display:grid;gap:8px;margin-bottom:28px}
+  .contactinfo span{color:var(--muted)}
+  .contactinfo a:hover{color:var(--accent)}
+  form{display:grid;gap:14px;max-width:520px}
+  input,textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
+  input:focus,textarea:focus{outline:2px solid var(--accent);border-color:transparent}
+  footer.site{text-align:center;padding:30px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line)}
+
+  /* WhatsApp flotante */
+  .wa{position:fixed;right:20px;bottom:20px;z-index:60;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 8px 20px rgba(0,0,0,.25);transition:transform .2s}
+  .wa:hover{transform:scale(1.1)}
+
+  /* Animación al hacer scroll */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a href="#inicio" class="logo"><img src="logo.png" alt="SEIyMI" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none'"><span>SEIyMI</span></a>
+    <ul>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><button id="theme" aria-label="Cambiar tema">🌙</button></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="wrap">
+    <span class="tag">Servicios de Ingeniería y Mantenimiento Industrial</span>
+    <h1>Ingeniería que mantiene tu <em>industria</em> en marcha</h1>
+    <p>Mantenimiento industrial, soporte técnico, automatización, maquinados, seguridad y logística para empresas de los sectores industrial, comercial y de servicios.</p>
+    <a href="#proyectos" class="btn primary">Ver nuestro trabajo</a>
+    <a href="#contacto" class="btn ghost">Solicitar cotización</a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap stats reveal">
+    <div class="stat"><b data-n="9" data-s="">0</b><span>Líneas de servicio</span></div>
+    <div class="stat"><b data-n="10" data-s="">0</b><span>Trabajos realizados (ene–jun 2026)</span></div>
+    <div class="stat"><b data-n="7" data-s="">0</b><span>Empresas atendidas</span></div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="wrap">
+    <span class="tag">Quiénes somos</span>
+    <h2>Soluciones técnicas confiables</h2>
+    <p class="sub">Somos parte de un grupo empresarial orientado al desarrollo de soluciones técnicas y operativas para los sectores industrial, comercial y de servicios, con sede en San Mateo Atenco, Estado de México.</p>
+    <div class="grid">
+      <div class="card reveal"><div class="ico">🎯</div><h3>Misión</h3><p>Brindar soluciones técnicas y operativas que contribuyan al desarrollo, mantenimiento y mejora de las actividades de nuestros clientes, con servicios responsables, eficientes y adaptados a cada proyecto.</p></div>
+      <div class="card reveal"><div class="ico">🔭</div><h3>Visión</h3><p>Consolidarnos como una organización confiable y versátil en servicios técnicos, operativos y de apoyo para distintos sectores, fortaleciendo continuamente nuestras capacidades.</p></div>
+      <div class="card reveal"><div class="ico">🤝</div><h3>Valores</h3><p><b>Compromiso y seriedad</b>, <b>actitud profesional</b> y <b>atención al cliente</b> en cada trabajo, de forma ordenada, segura y eficiente.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <span class="tag">Qué hacemos</span>
+    <h2>Nuestros servicios</h2>
+    <p class="sub">Soluciones integrales para la industria, desde el diseño del proyecto hasta su operación y mantenimiento.</p>
+    <div class="grid">
+      <div class="card reveal"><div class="ico">🔧</div><h3>Mantenimiento industrial</h3><p>Mantenimiento e instalaciones técnicas para maquinaria y equipo industrial, para reducir paros y alargar su vida útil.</p></div>
+      <div class="card reveal"><div class="ico">🛠️</div><h3>Servicio y soporte técnico</h3><p>Soporte a líneas de producción (soplado, llenado y taponado), con diagnóstico de PLC, interfaces HMI y sensores.</p></div>
+      <div class="card reveal"><div class="ico">🤖</div><h3>Automatización</h3><p>Implementación de sistemas automatizados, y diseño y suministro de piezas y componentes de automatización.</p></div>
+      <div class="card reveal"><div class="ico">⚙️</div><h3>Maquinados y acero inoxidable</h3><p>Maquinado y fabricación de piezas, y soluciones en acero inoxidable: tanques, tuberías y aislamiento.</p></div>
+      <div class="card reveal"><div class="ico">📐</div><h3>Ingeniería y obra</h3><p>Proyectos de ingeniería y arquitectura; obra civil, eléctrica y mecánica; remodelación y adecuaciones industriales.</p></div>
+      <div class="card reveal"><div class="ico">🏭</div><h3>Instalaciones industriales integrales</h3><p>Oficinas funcionales, patios de maniobra, comedores industriales, jardinería y áreas verdes.</p></div>
+      <div class="card reveal"><div class="ico">🦺</div><h3>Seguridad y cumplimiento normativo</h3><p>Carpetas de seguridad, protección civil, apoyo en cumplimiento STPS, sistemas contra incendio y capacitación.</p></div>
+      <div class="card reveal"><div class="ico">🚚</div><h3>Logística, fletes y transporte</h3><p>Transporte de carga, maniobras, izajes y apoyo logístico en campo para tus proyectos y operaciones.</p></div>
+      <div class="card reveal"><div class="ico">📦</div><h3>Comercio y suministro</h3><p>Compra, venta, importación y distribución de materiales, refacciones y equipos industriales.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <span class="tag">Portafolio</span>
+    <h2>Trabajos recientes</h2>
+    <p class="sub">Servicios realizados entre enero y junio de 2026. Filtra por tipo de trabajo.</p>
+    <div class="filters" id="filters">
+      <button class="on" data-f="todos">Todos</button>
+      <button data-f="a">Mantenimiento y soporte</button>
+      <button data-f="b">Automatización e instalaciones</button>
+      <button data-f="c">Seguridad</button>
+      <button data-f="d">Logística y fabricación</button>
+    </div>
+    <div class="grid" id="projects"></div>
+  </div>
+</section>
+
+<section id="clientes">
+  <div class="wrap">
+    <span class="tag">Clientes</span>
+    <h2>Empresas que han confiado en nosotros</h2>
+    <p class="sub">Algunas de las empresas a las que prestamos servicio durante 2026.</p>
+    <div class="chips reveal">
+      <span class="chip">Barcel</span>
+      <span class="chip">Aerobal</span>
+      <span class="chip">GEEP Embotelladora (PepsiCo)</span>
+      <span class="chip">Landsteiner Scientific</span>
+      <span class="chip">Amexteco Products</span>
+      <span class="chip">Henkel</span>
+      <span class="chip">BOCAR</span>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="wrap">
+    <span class="tag">Hablemos</span>
+    <h2>Contáctanos</h2>
+    <p class="sub">Cuéntanos qué necesitas y te respondemos pronto.</p>
+    <div class="contactinfo reveal">
+      <div><b>Ing. Rubén Becerril Sanabria</b><br><span>Director de Operaciones</span></div>
+      <a href="tel:+527291093715">📞 729 109 3715</a>
+      <a href="mailto:seiymi.ingenieria@gmail.com">✉️ seiymi.ingenieria@gmail.com</a>
+      <span>📍 San Mateo Atenco, Estado de México</span>
+    </div>
+    <form id="form">
+      <input name="nombre" placeholder="Tu nombre" required>
+      <input name="correo" type="email" placeholder="Tu correo" required>
+      <textarea name="mensaje" rows="4" placeholder="¿En qué te podemos ayudar?" required></textarea>
+      <button class="btn primary" type="submit">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<footer class="site">© <span id="year"></span> SEIyMI Servicios de Ingeniería y Mantenimiento Industrial, S.A. de C.V. Todos los derechos reservados.</footer>
+
+<a class="wa" id="wa" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<div id="modal"><div class="box" id="box"></div></div>
+
+<script>
+  /* ====== EDITA TUS DATOS AQUÍ ====== */
+  const CONFIG = {
+    whatsapp: "527291093715",            // Número con código de país (52) y sin + ni espacios. Confirma que ese teléfono tenga WhatsApp
+    correo: "seiymi.ingenieria@gmail.com" // Correo donde recibirás los mensajes del formulario
+  };
+  // Categorías (c): a=Mantenimiento y soporte, b=Automatización e instalaciones, c=Seguridad, d=Logística y fabricación
+  const PROYECTOS = [
+    {t:"Carpetas de seguridad normativas", c:"c", d:"Barcel, CEDIS Lerma Park · Enero 2026", e:"🦺", g:["#1b2f5e","#3b5ba5"]},
+    {t:"Soporte técnico de mantenimiento a capper AROL", c:"a", d:"Aerobal · Febrero 2026", e:"🔧", g:["#334155","#94a3b8"]},
+    {t:"Soporte técnico de mantenimiento a capper AROL", c:"a", d:"GEEP Embotelladora, Apodaca (PepsiCo) · Febrero 2026", e:"🛠️", g:["#14274e","#5b7fc7"]},
+    {t:"Maniobra e izaje de equipo", c:"d", d:"Landsteiner Scientific · Febrero 2026", e:"🏗️", g:["#a8740f","#e8b04a"]},
+    {t:"Mantenimiento a mezcladora de polvo industrial", c:"a", d:"Amexteco Products · Marzo 2026", e:"⚙️", g:["#475569","#cbd5e1"]},
+    {t:"Implementación de bandas automatizadas", c:"b", d:"Henkel · Marzo 2026", e:"🤖", g:["#1b2f5e","#d4981a"]},
+    {t:"Inspección de ensacadora", c:"a", d:"Amexteco Products · Marzo 2026", e:"🔍", g:["#334155","#64748b"]},
+    {t:"Cambio de botonera y líneas de alimentación a extractor de aire", c:"b", d:"Amexteco Products · Mayo 2026", e:"💡", g:["#1b2f5e","#3b5ba5"]},
+    {t:"Mantenimiento a polipasto 2T", c:"a", d:"Amexteco Products · Mayo 2026", e:"⛓️", g:["#14274e","#5b7fc7"]},
+    {t:"Diseño y fabricación de sellos vulcanizados", c:"d", d:"BOCAR, Lerma · Junio 2026", e:"🧩", g:["#a8740f","#e8b04a"]}
+  ];
+  const NOMBRES = {a:"Mantenimiento y soporte", b:"Automatización e instalaciones", c:"Seguridad y normatividad", d:"Logística y fabricación"};
+
+  /* Proyectos */
+  const cont = document.getElementById("projects");
+  cont.innerHTML = PROYECTOS.map((p,i)=>`
+    <article class="project reveal" data-c="${p.c}" data-i="${i}">
+      <div class="thumb" style="background:linear-gradient(135deg,${p.g[0]},${p.g[1]})">${p.e}</div>
+      <div class="info"><small>${NOMBRES[p.c]}</small><h3>${p.t}</h3><p>${p.d}</p></div>
+    </article>`).join("");
+
+  /* Filtros */
+  document.getElementById("filters").addEventListener("click",e=>{
+    if(e.target.tagName!=="BUTTON")return;
+    document.querySelectorAll("#filters button").forEach(b=>b.classList.remove("on"));
+    e.target.classList.add("on");
+    const f=e.target.dataset.f;
+    document.querySelectorAll(".project").forEach(p=>p.classList.toggle("hide",f!=="todos"&&p.dataset.c!==f));
+  });
+
+  /* Modal */
+  const modal=document.getElementById("modal"), box=document.getElementById("box");
+  cont.addEventListener("click",e=>{
+    const el=e.target.closest(".project"); if(!el)return;
+    const p=PROYECTOS[el.dataset.i];
+    box.innerHTML=`<div class="thumb" style="background:linear-gradient(135deg,${p.g[0]},${p.g[1]})">${p.e}</div>
+      <div class="info"><small style="color:var(--accent);font-weight:600">${NOMBRES[p.c]}</small><h3>${p.t}</h3><p style="color:var(--muted)">${p.d}</p>
+      <button class="btn primary" onclick="document.getElementById('modal').classList.remove('open')">Cerrar</button></div>`;
+    modal.classList.add("open");
+  });
+  modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("open")});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")modal.classList.remove("open")});
+
+  /* Aparecer al hacer scroll */
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.15});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  /* Contadores animados */
+  const so=new IntersectionObserver(es=>es.forEach(x=>{
+    if(!x.isIntersecting)return;
+    x.target.querySelectorAll("[data-n]").forEach(b=>{
+      const n=+b.dataset.n, s=b.dataset.s??"+"; let v=0;
+      const t=setInterval(()=>{v+=Math.ceil(n/60); if(v>=n){v=n;clearInterval(t)} b.textContent=v+s},25);
+    });
+    so.unobserve(x.target);
+  }),{threshold:.4});
+  document.querySelectorAll(".stats").forEach(el=>so.observe(el));
+
+  /* Tema claro/oscuro */
+  const root=document.documentElement, tb=document.getElementById("theme");
+  function setTheme(t){root.dataset.theme=t;tb.textContent=t==="dark"?"☀️":"🌙"}
+  setTheme(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+  tb.onclick=()=>setTheme(root.dataset.theme==="dark"?"light":"dark");
+
+  /* WhatsApp y formulario (abre el correo del visitante, no necesita servidor) */
+  document.getElementById("wa").href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hola, me interesa conocer más sobre sus servicios.")}`;
+  document.getElementById("form").addEventListener("submit",e=>{
+    e.preventDefault();
+    const f=new FormData(e.target);
+    const body=`Nombre: ${f.get("nombre")}\nCorreo: ${f.get("correo")}\n\n${f.get("mensaje")}`;
+    location.href=`mailto:${CONFIG.correo}?subject=${encodeURIComponent("Contacto desde la web")}&body=${encodeURIComponent(body)}`;
+  });
+  document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
